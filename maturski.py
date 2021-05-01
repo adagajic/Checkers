@@ -1,4 +1,5 @@
 import pygame
+
 from tabla import Tabla
 pygame.init()
 WHITE = (255, 255, 255)
@@ -18,6 +19,10 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            pos=pygame.mouse.get_pos()
+            x,y=pos
+            tabla.position(x,y)
     screen.fill(WHITE)
     tabla.drawBoard(screen)
     pygame.display.flip()
