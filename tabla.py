@@ -10,9 +10,11 @@ size = (800,800)
 class Tabla:
     def __init__(self):
         self.board = np.full((8,8),Figura(0,0,GREEN))
-        self.moveturn = False
+        self.moveturn = None
         self.turn = RED
-
+        self.validMoves = {}
+        self.skipped=False
+        self.skippedPieces =[]
 
     def drawBoard(self,screen):
         for row in range(8):
@@ -29,18 +31,38 @@ class Tabla:
                         self.board[row][column] = Figura(row,column,RED)
                         fig = self.board[row][column]
                         fig.drawcircle(screen)
-    def getColor(self,x,y):
+    def getPiece(self,x,y):
         column=x//100
         row=y//100
-        return self.board[row][column].color
+        return self.board[row][column]
 
-
-    def position(self,x,y):
+    def move(self,x,y,screen):
+        column = x // 100
+        row = y // 100
+        piece = self.board[row][column]
+        if piece.color==GREEN and (row,column) in self.validMoves:
+            piece2 = self.moveturn
+            if self.skipped:
+                for i in self.skippedPieces:
+                    self.skippedPieces[i]
+            else:
+                self.board[row][column]=Figura(row,column,piece2.color)
+                self.board[piece2.row][piece2.column]=Figura(piece2.row,piece2.column,GREEN)
+                fig=self.board[row][column]
+                fig.drawcircle(screen)
+            return True
+        return False
+    def position(self,x,y,screen):
+        piece = self.getPiece(x, y)
         if self.moveturn:
-            blcon=move(x,y)
+            blcon=self.move(x,y,screen)
             if not blcon:
-                self.moveturn=False
+                self.moveturn=None
                 self.position(x,y)
-        if self.getColor(x,y)==RED:
-            self.moveturn=True
-            self.validTurns=self.getValidMoves(x,y)
+
+
+        elif piece.color==self.turn:
+            column = x // 100
+            row = y // 100
+            self.moveturn=self.board[row][column]
+            self.validMoves=self.getValidMoves(x,y)
