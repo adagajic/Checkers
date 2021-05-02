@@ -12,7 +12,7 @@ class Tabla:
         self.board = np.full((8,8),Figura(0,0,GREEN))
         self.moveturn = None
         self.turn = RED
-        self.validMoves = {}
+        self.validMoves = []
         self.skipped=False
         self.skippedPieces =[]
 
@@ -58,11 +58,22 @@ class Tabla:
             blcon=self.move(x,y,screen)
             if not blcon:
                 self.moveturn=None
-                self.position(x,y)
+                self.position(x,y,screen)
 
 
         elif piece.color==self.turn:
             column = x // 100
             row = y // 100
             self.moveturn=self.board[row][column]
-            self.validMoves=self.getValidMoves(x,y)
+            self.validMoves=self.getValidMoves(row,column)
+    def getValidMoves(self,row,column):
+        piece =self.board[row][column]
+        color = piece.color
+
+        if color == RED:
+            piece1=self.board[row-1][column-1]
+            piece2=self.board[row-1][column+1]
+            if piece1.color==GREEN:
+                self.validMoves.append((row - 1, column + 1))
+            if piece2.color==GREEN:
+                self.validMoves.append((row - 1, column + 1))

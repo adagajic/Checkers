@@ -22,7 +22,7 @@ while not done:
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos=pygame.mouse.get_pos()
             x,y=pos
-            tabla.position(x,y)
+            tabla.position(x,y,screen)
     screen.fill(WHITE)
     tabla.drawBoard(screen)
     pygame.display.flip()
