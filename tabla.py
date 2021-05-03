@@ -31,6 +31,17 @@ class Tabla:
                         self.board[row][column] = Figura(row,column,RED)
                         fig = self.board[row][column]
                         fig.drawcircle(screen)
+
+    def drawBoard1(self,screen):
+        for row in range(8):
+            for column in range(8):
+                if (row+column)%2==0:
+                    pygame.draw.rect(screen,WHITE,[column*100,row*100,100,100])
+                else:
+                    pygame.draw.rect(screen,GREEN,[column*100,row*100,100,100])
+                    fig=self.board[row][column]
+                    if(fig.color==RED or fig.color==WHITE):
+                        fig.drawcircle(screen)
     def getPiece(self,x,y):
         column=x//100
         row=y//100
@@ -40,16 +51,14 @@ class Tabla:
         column = x // 100
         row = y // 100
         piece = self.board[row][column]
+        print ((row, column))
         if piece.color==GREEN and (row,column) in self.validMoves:
             piece2 = self.moveturn
-            if self.skipped:
-                for i in self.skippedPieces:
-                    self.skippedPieces[i]
-            else:
-                self.board[row][column]=Figura(row,column,piece2.color)
-                self.board[piece2.row][piece2.column]=Figura(piece2.row,piece2.column,GREEN)
-                fig=self.board[row][column]
-                fig.drawcircle(screen)
+            print(piece2.row,piece2.column,piece2.color)
+            self.board[row][column]=Figura(row,column,piece2.color)
+            self.board[piece2.row][piece2.column]=Figura(piece2.row,piece2.column,GREEN)
+            fig=self.board[row][column]
+            fig.drawcircle(screen)
             return True
         return False
     def position(self,x,y,screen):
@@ -59,13 +68,14 @@ class Tabla:
             if not blcon:
                 self.moveturn=None
                 self.position(x,y,screen)
-
+            self.validMoves = []
 
         elif piece.color==self.turn:
             column = x // 100
             row = y // 100
             self.moveturn=self.board[row][column]
-            self.validMoves=self.getValidMoves(row,column)
+            self.getValidMoves(row,column)
+            print(self.validMoves)
     def getValidMoves(self,row,column):
         piece =self.board[row][column]
         color = piece.color
@@ -74,6 +84,6 @@ class Tabla:
             piece1=self.board[row-1][column-1]
             piece2=self.board[row-1][column+1]
             if piece1.color==GREEN:
-                self.validMoves.append((row - 1, column + 1))
+                self.validMoves.append((row - 1, column - 1))
             if piece2.color==GREEN:
                 self.validMoves.append((row - 1, column + 1))

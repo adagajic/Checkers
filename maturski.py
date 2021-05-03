@@ -13,6 +13,7 @@ screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Checkers")
 done = False
 tabla = Tabla()
+tabla.drawBoard(screen)
 while not done:
 
 
@@ -24,7 +25,7 @@ while not done:
             x,y=pos
             tabla.position(x,y,screen)
     screen.fill(WHITE)
-    tabla.drawBoard(screen)
+    tabla.drawBoard1(screen)
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
