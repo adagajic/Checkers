@@ -52,13 +52,34 @@ class Tabla:
         row = y // 100
         piece = self.board[row][column]
         print ((row, column))
-        if piece.color==GREEN and (row,column) in self.validMoves:
+        if piece.color==GREEN and (row,column,False) in self.validMoves:
             piece2 = self.moveturn
             print(piece2.row,piece2.column,piece2.color)
             self.board[row][column]=Figura(row,column,piece2.color)
             self.board[piece2.row][piece2.column]=Figura(piece2.row,piece2.column,GREEN)
             fig=self.board[row][column]
+            self.validMoves = []
             fig.drawcircle(screen)
+            if self.turn==RED:
+                self.turn=WHITE
+            else:
+                self.turn=RED
+            return True
+        if piece.color == GREEN and (row, column, True) in self.validMoves:
+            piece2 = self.moveturn
+            print(piece2.row, piece2.column, piece2.color)
+            self.board[row][column] = Figura(row, column, piece2.color)
+            self.board[piece2.row][piece2.column] = Figura(piece2.row, piece2.column, GREEN)
+            row1=(row+piece2.row)//2
+            column1=(column+piece2.column)//2
+            self.board[row1][column1]=Figura(row1,column1,GREEN)
+            fig = self.board[row][column]
+            self.validMoves = []
+            fig.drawcircle(screen)
+            if self.turn==RED:
+                self.turn=WHITE
+            else:
+                self.turn=RED
             return True
         return False
     def position(self,x,y,screen):
@@ -67,8 +88,8 @@ class Tabla:
             blcon=self.move(x,y,screen)
             if not blcon:
                 self.moveturn=None
+                self.validMoves = []
                 self.position(x,y,screen)
-            self.validMoves = []
 
         elif piece.color==self.turn:
             column = x // 100
@@ -80,10 +101,39 @@ class Tabla:
         piece =self.board[row][column]
         color = piece.color
 
-        if color == RED:
-            piece1=self.board[row-1][column-1]
-            piece2=self.board[row-1][column+1]
-            if piece1.color==GREEN:
-                self.validMoves.append((row - 1, column - 1))
-            if piece2.color==GREEN:
-                self.validMoves.append((row - 1, column + 1))
+        if color == RED or piece:
+            if (row-1)>=0 and (column-1)>=0:
+                piece1=self.board[row-1][column-1]
+                if piece1.color == GREEN:
+                    self.validMoves.append((row - 1, column - 1,False))
+                if piece1.color == WHITE and  (row-2)>=0 and (column-2)>=0:
+                    piece11=self.board[row-2][column-2]
+                    if piece11.color==GREEN:
+                        self.validMoves.append((row - 2, column - 2,True))
+
+            if (row-1)>=0 and (column+1)<8:
+                piece2=self.board[row-1][column+1]
+                if piece2.color == GREEN and (row - 1) >= 0 and (column + 1) < 8:
+                    self.validMoves.append((row - 1, column + 1,False))
+                if piece2.color == WHITE and (row - 2) >= 0 and (column + 2) < 8:
+                    piece11 = self.board[row - 2][column + 2]
+                    if piece11.color == GREEN:
+                        self.validMoves.append((row - 2, column + 2, True))
+        if color == WHITE:
+            if (row+1)<8 and (column-1)>=0:
+                piece1=self.board[row+1][column-1]
+                if piece1.color == GREEN:
+                    self.validMoves.append((row + 1, column - 1,False))
+                if piece1.color == RED and  (row+2)<8 and (column-2)>=0:
+                    piece11=self.board[row+2][column-2]
+                    if piece11.color==GREEN:
+                        self.validMoves.append((row + 2, column - 2,True))
+
+            if (row+1)<8 and (column+1)<8:
+                piece2=self.board[row+1][column+1]
+                if piece2.color == GREEN and (row + 1) < 8 and (column + 1) < 8:
+                    self.validMoves.append((row + 1, column + 1,False))
+                if piece2.color == RED and (row + 2) < 8 and (column + 2) < 8:
+                    piece11 = self.board[row + 2][column + 2]
+                    if piece11.color == GREEN:
+                        self.validMoves.append((row + 2, column + 2, True))

@@ -16,8 +16,11 @@ class Figura:
         self.centerx = column * 100 + 50
         self.centery = row * 100 + 50
 
+
     def drawcircle(self, screen):
         pygame.draw.circle(screen, self.color, (self.centerx, self.centery), 35)
+        if self.king:
+            pygame.draw
 
     def movepiece(self, row, column):
         self.row = row
