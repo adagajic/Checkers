@@ -15,6 +15,8 @@ class Tabla:
         self.validMoves = []
         self.skipped=False
         self.skippedPieces =[]
+        self.crvenef = 12
+        self.belef = 12
 
     def drawBoard(self,screen):
         for row in range(8):
@@ -46,6 +48,14 @@ class Tabla:
         column=x//100
         row=y//100
         return self.board[row][column]
+    def pobeda(self):
+        if self.belef==0:
+            print("Crveni je pobedio")
+            return True
+        if self.crvenef==0:
+            print("Beli je pobedio")
+            return True
+        return False
 
     def move(self,x,y,screen):
         column = x // 100
@@ -74,14 +84,20 @@ class Tabla:
             return True
         if piece.color == GREEN and (row, column, True) in self.validMoves:
             piece2 = self.moveturn
+
             print(piece2.row, piece2.column, piece2.color)
             self.board[row][column] = Figura(row, column, piece2.color)
             self.board[row][column].king=piece2.king
             self.board[piece2.row][piece2.column] = Figura(piece2.row, piece2.column, GREEN)
             row1=(row+piece2.row)//2
             column1=(column+piece2.column)//2
+            color = self.board[row1][column1].color
             self.board[row1][column1]=Figura(row1,column1,GREEN)
             fig = self.board[row][column]
+            if color == RED:
+                self.crvenef=self.crvenef-1
+            else:
+                self.belef=self.belef-1
             if fig.color==RED and row==0:
                 fig.king=True
                 self.board[row][column].king = True
@@ -151,3 +167,4 @@ class Tabla:
                     piece11 = self.board[row + 2][column + 2]
                     if piece11.color == GREEN:
                         self.validMoves.append((row + 2, column + 2, True))
+

@@ -24,8 +24,11 @@ while not done:
             pos=pygame.mouse.get_pos()
             x,y=pos
             tabla.position(x,y,screen)
+
     screen.fill(WHITE)
     tabla.drawBoard1(screen)
+    if tabla.pobeda():
+        done = True
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
