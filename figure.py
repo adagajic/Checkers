@@ -5,7 +5,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 size = (800, 800)
-
+crown = pygame.transform.scale(pygame.image.load('crown-512.png'),(32,32))
 
 class Figura:
     def __init__(self, row, column, color):
@@ -20,7 +20,7 @@ class Figura:
     def drawcircle(self, screen):
         pygame.draw.circle(screen, self.color, (self.centerx, self.centery), 35)
         if self.king:
-            pygame.draw
+            screen.blit(crown,(self.centerx-16,self.centery-16))
 
     def movepiece(self, row, column):
         self.row = row
