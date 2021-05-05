@@ -57,14 +57,14 @@ class Tabla:
             return True
         return False
 
-    def move(self,x,y,screen):
+    def move(self,x,y):
         column = x // 100
         row = y // 100
         piece = self.board[row][column]
-        print ((row, column))
+
         if piece.color==GREEN and (row,column,False) in self.validMoves:
             piece2 = self.moveturn
-            print(piece2.row,piece2.column,piece2.color)
+
             self.board[row][column]=Figura(row,column,piece2.color)
             self.board[row][column].king = piece2.king
             self.board[piece2.row][piece2.column]=Figura(piece2.row,piece2.column,GREEN)
@@ -76,7 +76,7 @@ class Tabla:
             if fig.color==WHITE and row==7:
                 fig.king=True
                 self.board[row][column].king = True
-            fig.drawcircle(screen)
+
             if self.turn==RED:
                 self.turn=WHITE
             else:
@@ -85,7 +85,8 @@ class Tabla:
         if piece.color == GREEN and (row, column, True) in self.validMoves:
             piece2 = self.moveturn
 
-            print(piece2.row, piece2.column, piece2.color)
+
+
             self.board[row][column] = Figura(row, column, piece2.color)
             self.board[row][column].king=piece2.king
             self.board[piece2.row][piece2.column] = Figura(piece2.row, piece2.column, GREEN)
@@ -105,7 +106,6 @@ class Tabla:
                 fig.king=True
                 self.board[row][column].king = True
             self.validMoves = []
-            fig.drawcircle(screen)
             if self.turn==RED:
                 self.turn=WHITE
             else:
@@ -115,7 +115,7 @@ class Tabla:
     def position(self,x,y,screen):
         piece = self.getPiece(x, y)
         if self.moveturn:
-            blcon=self.move(x,y,screen)
+            blcon=self.move(x,y)
             if not blcon:
                 self.moveturn=None
                 self.validMoves = []
@@ -126,11 +126,12 @@ class Tabla:
             row = y // 100
             self.moveturn=self.board[row][column]
             self.getValidMoves(row,column)
-            print(self.validMoves)
+
+
     def getValidMoves(self,row,column):
         piece =self.board[row][column]
         color = piece.color
-        print(color)
+
         if color == RED or piece.king:
             if (row-1)>=0 and (column-1)>=0:
                 piece1=self.board[row-1][column-1]

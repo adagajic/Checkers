@@ -1,6 +1,7 @@
 import pygame
-
+import time
 from tabla import Tabla
+from minmax import minmax
 pygame.init()
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
@@ -27,6 +28,13 @@ while not done:
 
     screen.fill(WHITE)
     tabla.drawBoard1(screen)
+    pygame.display.flip()
+    if tabla.turn==WHITE:
+
+        tr=minmax(4,tabla)
+
+        tabla.drawBoard1(screen)
+
     if tabla.pobeda():
         done = True
     pygame.display.flip()
