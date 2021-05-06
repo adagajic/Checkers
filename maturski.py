@@ -25,7 +25,7 @@ tabla = Tabla()
 font1 = pygame.font.SysFont('Corbel', 70)
 tabla.drawBoard(screen)
 font2 = None
-tekst3 = None
+text3 = None
 
 
 def btton(screen, x, y, text, color):

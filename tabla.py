@@ -75,7 +75,7 @@ class Tabla:
                     self.getValidMoves(row, column)
                     if not (self.validMoves == []):
                         array.append(self.validMoves)
-                    self.validMoves == []
+                    self.validMoves = []
 
         if array == []:
             return True
