@@ -1,5 +1,5 @@
 import pygame
-import time
+
 from tabla import Tabla
 from minmax import minmax
 pygame.init()
