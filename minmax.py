@@ -37,11 +37,11 @@ def minmax(depth, tabla):
                     if depth == DEPTH:
                         moveval.append(((row, column), (row1, column1), k))
 
-                tabla.validMoves = []
+                    tabla.validMoves = []
     if maxList == [] and tabla.turn == RED:
         return 100
     if maxList == [] and tabla.turn == WHITE:
-        return -100
+         return -100
     if (tabla.turn == RED):
 
         max1 = min(maxList)
@@ -49,7 +49,7 @@ def minmax(depth, tabla):
         max1 = max(maxList)
 
     if depth == DEPTH:
-        for j in moveval:
+         for j in moveval:
 
             ((row, column), (row1, column1), k) = j
 

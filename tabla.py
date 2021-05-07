@@ -86,7 +86,6 @@ class Tabla:
 
         if piece.color == GREEN and (row, column, False) in self.validMoves:
             piece2 = self.moveturn
-
             self.board[row][column] = Figura(row, column, piece2.color)
             self.board[row][column].king = piece2.king
             self.board[piece2.row][piece2.column] = Figura(piece2.row, piece2.column, GREEN)
@@ -98,7 +97,6 @@ class Tabla:
             if fig.color == WHITE and row == 7:
                 fig.king = True
                 self.board[row][column].king = True
-
             if self.turn == RED:
                 self.turn = WHITE
             else:
@@ -106,7 +104,6 @@ class Tabla:
             return True
         if piece.color == GREEN and (row, column, True) in self.validMoves:
             piece2 = self.moveturn
-
             self.board[row][column] = Figura(row, column, piece2.color)
             self.board[row][column].king = piece2.king
             self.board[piece2.row][piece2.column] = Figura(piece2.row, piece2.column, GREEN)
