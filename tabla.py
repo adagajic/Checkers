@@ -17,8 +17,6 @@ class Tabla:
         self.moveturn = None
         self.turn = RED
         self.validMoves = []
-        self.skipped = False
-        self.skippedPieces = []
         self.crvenef = 12
         self.belef = 12
 
@@ -59,14 +57,14 @@ class Tabla:
 
     def pobeda(self):
 
-        if self.belef == 0 or (self.nereseno() == True and self.turn == WHITE):
+        if self.belef == 0 or (self.nomoves() == True and self.turn == WHITE):
             return "red"
-        if self.crvenef == 0 or (self.nereseno() == True and self.turn == RED):
+        if self.crvenef == 0 or (self.nomoves() == True and self.turn == RED):
             return "white"
 
         return False
 
-    def nereseno(self):
+    def nomoves(self):
         array = []
 
         for row in range(8):

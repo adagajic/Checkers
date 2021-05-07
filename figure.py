@@ -22,8 +22,3 @@ class Figura:
         if self.king:
             screen.blit(crown,(self.centerx-16,self.centery-16))
 
-    def movepiece(self, row, column):
-        self.row = row
-        self.column = column
-        self.centerx = column * 100 + 50
-        self.centery = row * 100 + 50
