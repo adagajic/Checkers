@@ -49,6 +49,7 @@ def minmax(depth, tabla):
         max1 = max(maxList)
 
     if depth == DEPTH:
+         print(moveval)
          for j in moveval:
 
             ((row, column), (row1, column1), k) = j

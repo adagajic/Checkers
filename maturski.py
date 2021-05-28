@@ -26,7 +26,7 @@ font1 = pygame.font.SysFont('Corbel', 70)
 tabla.drawBoard(screen)
 font2 = None
 text3 = None
-
+DEPTH = 4
 
 def btton(screen, x, y, text, color):
     pygame.draw.rect(screen, color, [x, y, 400, 100])
@@ -87,8 +87,9 @@ class main:
                 text_rect = text3.get_rect(center=(screen_width // 2, screen_height // 2))
                 screen.blit(text3, text_rect)
             if tabla.turn == WHITE and komp and not QED:
-                tr = minmax(4, tabla)
+                tr = minmax(DEPTH, tabla)
                 tabla.drawBoard1(screen)
+
 
         pygame.display.flip()
         clock.tick(60)
